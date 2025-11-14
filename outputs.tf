@@ -1,7 +1,5 @@
-output "instance_ami" {
-  value = aws_instance.ubuntu.ami
-}
 
-output "instance_arn" {
-  value = aws_instance.ubuntu.arn
+output "instance_hostname" {
+  description = "Private DNS name of the EC2 instance."
+  value       = aws_instance.app_server.private_dns
 }
