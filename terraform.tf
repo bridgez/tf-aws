@@ -1,19 +1,20 @@
 terraform {
 
   cloud {
-    organization = "xpfool-org"
+    organization = "aws2025-org"
 
     workspaces {
-      name = "HCP-EC2"
+      project = "Default Project"
+      name = "tf-aws"
     }
   }
 
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.31.0"
+      version = "~> 5.92.0"
     }
   }
 
-  required_version = "~> 1.2"
+  required_version = "~> 1.2.0"
 }
