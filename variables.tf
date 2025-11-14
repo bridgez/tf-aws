@@ -1,14 +1,11 @@
-variable "region" {
-  description = "AWS region"
-  default     = "us-east-2"
+variable "instance_name" {
+  description = "Value of the EC2 instance's Name tag."
+  type        = string
+  default     = "AppServer"
 }
 
 variable "instance_type" {
-  description = "Type of EC2 instance to provision"
-  default     = "t2.micro"
-}
-
-variable "instance_name" {
-  description = "EC2 instance name"
-  default     = "My-EC2"
+  description = "The EC2 instance's type."
+  type        = string
+  default     = "t4g.small"
 }
