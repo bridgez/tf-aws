@@ -8,9 +8,9 @@ provider "aws" {
   skip_metadata_api_check     = true
   skip_requesting_account_id  = true
 
-  endpoints {
-    ec2        = "http://localhost:4566"
-  }
+#  endpoints {
+#    ec2        = "http://localhost:4566"
+#  }
 }
 
 data "aws_ami" "ubuntu" {
