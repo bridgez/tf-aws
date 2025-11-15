@@ -39,7 +39,7 @@ resource "aws_security_group" "bastion_sg" {
 # Bastion 跳板机实例（公有子网 + 公有 IP）
 # ------------------------------
 resource "aws_instance" "bastion" {
-  ami           = data.aws_ami.amazon_linux2.id # 与内网 EC2 共用镜像（密钥兼容）
+  ami           = data.aws_ami.ubuntu.id # 与内网 EC2 共用镜像（密钥兼容）
   instance_type = "t2.micro" # 免费套餐可用，足够作为跳板
   subnet_id     = module.vpc.public_subnets[0] # 部署在公有子网
   associate_public_ip_address = true # 显式分配公有 IP
