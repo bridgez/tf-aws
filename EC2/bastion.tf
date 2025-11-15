@@ -14,14 +14,6 @@ resource "aws_security_group" "bastion_sg" {
     cidr_blocks = ["0.0.0.0/0"] # 你的本地公网 IP/32 查询地址：https://www.ip138.com/ 
   }
 
-  # 出站：允许 Bastion 访问 VPC 内网的 22 端口（仅内网 EC2 可用）
-  egress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [module.vpc.vpc_cidr_block] # VPC 内网段（10.0.0.0/16）
-  }
-
   # 出站：允许 Bastion 访问外网（可选，用于更新/下载软件）
   egress {
     from_port   = 0
