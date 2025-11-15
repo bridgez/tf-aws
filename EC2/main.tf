@@ -1,8 +1,6 @@
 provider "aws" {
   region = "us-east-2"
 
-  AWS_ACCESS_KEY_ID           = "anaccesskey"
-  AWS_SECRET_ACCESS_KEY       = "asecretkey"
   s3_use_path_style           = true
   skip_credentials_validation = true
   skip_metadata_api_check     = true
