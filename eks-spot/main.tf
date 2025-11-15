@@ -71,7 +71,7 @@ module "eks" {
       name = "eks-spot"
 
       # amd64
-      instance_types = ["t3.xlarge"]
+      instance_types = ["t3.small"] #xlarge
       ami_type       = "AL2023_x86_64_STANDARD"
 
       # arm64
@@ -79,11 +79,11 @@ module "eks" {
       # ami_type       = "AL2_ARM_64"
 
       min_size     = 1
-      max_size     = 6
-      desired_size = 2
+      max_size     = 5
+      desired_size = 1
 
       capacity_type = "SPOT"
-      spot_max_price = "10"
+      spot_max_price = "0.0195"
 
       # Needed by the aws-ebs-csi-driver
       iam_role_additional_policies = {
