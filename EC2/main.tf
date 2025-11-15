@@ -36,12 +36,41 @@ module "vpc" {
   enable_dns_hostnames    = true  
 }
 
+# ------------------------------
+# 新增：允许 SSH 访问 + 对外任意访问的安全组
+# ------------------------------
+resource "aws_security_group" "app_server_sg" {
+  name        = "app-server-ssh-anywhere"
+  description = "允许任意地址 SSH 访问（22 端口），允许实例对外访问任意地址和端口"
+  vpc_id      = module.vpc.vpc_id # 关联到当前 VPC
+
+  # 入站规则：允许任意地址访问 SSH（22 端口）
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # 0.0.0.0/0 表示任意 IPv4 地址（生产环境不推荐，仅测试用）
+    # 若需限制仅自己访问，替换为你的公网 IP/32（如 "123.45.67.89/32"）
+  }
+
+  # 出站规则：允许实例对外访问任意地址、任意端口、任意协议
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1" # "-1" 表示所有协议（TCP/UDP/ICMP 等）
+    cidr_blocks = ["0.0.0.0/0"] # 任意 IPv4 地址
+  }
+
+  tags = {
+    Name = "App-Server-SG"
+  }
+}
 
 resource "aws_instance" "app_server" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
 
-  vpc_security_group_ids = [module.vpc.default_security_group_id]
+  vpc_security_group_ids = [aws_security_group.app_server_sg.id]
   subnet_id              = module.vpc.private_subnets[0]
 
   tags = {
