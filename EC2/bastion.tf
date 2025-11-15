@@ -3,7 +3,7 @@
 # ------------------------------
 resource "aws_security_group" "bastion_sg" {
   name        = "bastion-security-group"
-  description = "仅允许本地 IP 访问 Bastion SSH，允许 Bastion 访问内网 EC2 SSH"
+  description = "only allow from local client, and allow to private EC2 SSH"
   vpc_id      = module.vpc.vpc_id # 关联 VPC（复用 main.tf 中的 VPC 模块）
 
   # 入站：仅允许你的本地公网 IP 访问 22 端口（替换为你的实际 IP）
