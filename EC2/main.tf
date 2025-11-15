@@ -41,7 +41,7 @@ module "vpc" {
 # ------------------------------
 resource "aws_security_group" "app_server_sg" {
   name        = "app-server-ssh-anywhere"
-  description = "允许任意地址 SSH 访问（22 端口），允许实例对外访问任意地址和端口"
+  description = "allow any to SSH, allow any out"
   vpc_id      = module.vpc.vpc_id # 关联到当前 VPC
 
   # 入站规则：允许任意地址访问 SSH（22 端口）
