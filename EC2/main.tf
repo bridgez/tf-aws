@@ -69,9 +69,11 @@ resource "aws_security_group" "app_server_sg" {
 resource "aws_instance" "app_server" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
+  subnet_id              = module.vpc.private_subnets[0]
 
   vpc_security_group_ids = [aws_security_group.app_server_sg.id]
-  subnet_id              = module.vpc.private_subnets[0]
+  key_name               = "ec2-key" # 必须与内网 EC2 用同一个密钥！
+  
 
   tags = {
     Name = var.instance_name
